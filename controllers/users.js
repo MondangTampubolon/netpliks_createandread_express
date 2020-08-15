@@ -23,31 +23,11 @@ module.exports = {
     })
   },
   // get One
-  getOne : (req, res) => {
-    // mengambil ID dari parameter
-    const {id} = req.params
-    // query GET ONE
-    const myQuery = `SELECT * FROM users WHERE id=${id}`
-    // jalankan query mysql
-    connection.query(myQuery, (error, result) => {
-      if(error){
-        res.send({
-          message: 'error',
-          status: 500
-        })
-      }else {
-        res.send({
-          message: 'get one data',
-          status: 200,
-          result
-        })
-      }
-    })
-  },
+ 
   // addOne
   addOne : (req, res) => {
     // mendapatkan data dari form body / input
-    const {name, email, password} = req.body
+    const {fullname, username, email, password, address} = req.body
     // hash password input sebagai random number/string
     bcrypt.hash(password,6, (error, hashedPassword) => {
         if(error) {
@@ -56,7 +36,7 @@ module.exports = {
             })
         } else {
             // query insert
-            const myQuery = `INSERT INTO users(name, email, password) VALUES("${name}", "${email}", "${hashedPassword}")`;
+            const myQuery = `INSERT INTO users(fullname, username, email, password, address) VALUES("${fullname}", "${username}", "${email}", "${password}", "${address}")`;
             // eksekusi query
             connection.query(myQuery, (error, result) => {
                 if(error){

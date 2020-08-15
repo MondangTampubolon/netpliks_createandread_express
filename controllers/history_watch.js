@@ -26,9 +26,11 @@ module.exports = {
     })
   },
   addHistory : (req, res) => {
-    const myQuery = `INSERT INTO history (id_movie, id_user, id_subscription) VALUES (${id_user}, ${id_movie}, ${id_subscriptio})`;
+    const {id_user, id_movie, id_subscription} = req.body
+    const myQuery = `INSERT INTO history_watch (id_movie, id_user, id_subscription) VALUES (${id_user}, ${id_movie}, ${id_subscription})`;
     connection.query(myQuery, (error, result,) => {
       if(error) {
+        console.log(error)
         res.send({
           message: 'error',
           status: 500

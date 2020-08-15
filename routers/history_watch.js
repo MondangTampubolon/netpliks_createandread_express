@@ -7,7 +7,7 @@ const {
 } = require('../controllers/history_watch')
 
 router.get('/history_watch', getAll);
-router.post('/history_watch', addHistory)
+router.post('/history_watch/add', addHistory)
 
 
 

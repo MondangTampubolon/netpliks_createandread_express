@@ -7,7 +7,7 @@ const {
   } = require('../controllers/subscription')
 
 router.get('/subscription', getAll);
-router.post('/subscription', addSubscription)
+router.post('/subscription/create', addSubscription)
 
 
 module.exports = router;

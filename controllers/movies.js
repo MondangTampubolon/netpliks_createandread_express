@@ -25,7 +25,7 @@ module.exports = {
   // create data
   addMovies : (req, res) => {
     const { title , year, genre, description, url_trailer} = req.body;
-    connection.query(`INSERT INTO movie values(null, "${title}", ${year}, "${genre}", "${description}", "${url_trailer}" )`, (err, result) => {
+    connection.query(`INSERT INTO movies values(null, "${title}", ${year}, "${genre}", "${description}", "${url_trailer}" )`, (error, result) => {
       if(error) {
         res.send({
           message : error,

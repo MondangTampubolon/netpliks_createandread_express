@@ -5,10 +5,11 @@ module.exports = {
   // getall
   getAll : (req, res) => {
     // query sql
-    const myQuery = ' SELECT subscription.id_subscription, users.id_user, users.fullname, users.username, subscription.status FROM subscription INNER JOIN usersON subscription.id_user = users.id_user;'
+    const myQuery = ' SELECT subscription.id_subscription, users.id_user, users.fullname, users.username, subscription.status FROM subscription INNER JOIN users ON subscription.id_user = users.id_user;'
         //  menjalankan query yang kita buat
     connection.query(myQuery, (error, result, field) => {
       if(error){
+        // console.log(error)
         res.send({
           message: 'error',
           status: 500
@@ -23,9 +24,11 @@ module.exports = {
     })
   },
   addSubscription : (req, res) => {
+    const {id_user, status} = req.body;
     const myQuery = `INSERT INTO subscription (id_user, status) VALUES (${id_user}, ${status})`;
-    connection.query(myQuery, (error, result,) => {
+    connection.query(myQuery, (error, result) => {
       if(error) {
+        console.log(error)
         res.send({
           message: 'error',
           status: 500
