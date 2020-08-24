@@ -40,9 +40,44 @@ module.exports = {
       }
     });
 
-  }
-  
-
-//update
+  },
+  //update
+updateMovie: (req, res) => {
+  const {id} = req.params;
+      const myQuery = `Update movies ${title}, ${year}, ${genre}, ${description}, ${url_trailer} WHERE id=${id}`;
+      connection.query(myQuery, (error, result)=>{
+          if(error) {
+            res.send({
+              message:'Error Detected',
+              status: 500
+            })
+          }else {
+            res.send ({
+              message: 'Update Succesfull',
+              status: 201,
+              result
+            })
+          }
+      })
+     
+    },
 //delete
+  deleteMovie: (req, res) => {
+    const {id} = req.params;
+    const myQuery = `Delete from movies WHERE id=${id}`
+    connection.query(myQuery, (error, result) => {
+      if(error) {
+        res.send({
+          message:'Movie Still exists',
+          status: 500,
+        })
+      }else {
+        res.send ({
+          message:'Movie Deleted',
+          status: 200,
+          result
+        })
+      }
+    })
+  }
 }

@@ -49,4 +49,22 @@ module.exports = {
 
 //update
 //delete
+deleteHistoryWatch: (req, res) => {
+  const {id} = req.params;
+  const myQuery = `Delete from historyWatch WHERE id=${id}`
+  connection.query(myQuery, (error, result) => {
+    if(error) {
+      res.send({
+        message:'History Watch Still exists',
+        status: 500,
+      })
+    }else {
+      res.send ({
+        message:'History watch Deleted',
+        status: 200,
+        result
+      })
+    }
+  })
+}
 }

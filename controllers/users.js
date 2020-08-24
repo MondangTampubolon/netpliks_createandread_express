@@ -56,7 +56,56 @@ module.exports = {
 
         }
     })
-}
+},
 //update
+updateProfile: (req, res) => {
+  const {fullname, username, email, password, address} = req.body
+  bcrypt.hash(password,6, (error, hashedPassword) => {
+    if(error) {
+        res.send({
+            message: "password invalid"
+        })
+    } else {
+        // query insert
+        const {id} =req.params
+        const myQuery = `Update users (fullname, username, email, password, address) VALUES("${fullname}", "${username}", "${email}", "${password}", "${address}")`;
+        // eksekusi query
+        connection.query(myQuery, (error, result) => {
+            if(error){
+                console.log(error)
+                res.send({
+                    message: 'error',
+                    status: 500
+                })
+            } else {
+                res.send({
+                    message: 'Profile Updated',
+                    status: 200,
+                    result
+                })
+            }
+        })
+
+    }
+})
+},
 //delete
+  deleteProfile: (req, res) => {
+    const {id} = req.params;
+    const myQuery = `Delete from Users WHERE id=${id}`
+    connection.query(myQuery, (error, result) => {
+      if(error) {
+        res.send({
+          message:'Profile Still exists',
+          status: 500,
+        })
+      }else {
+        res.send ({
+          message:'Profile Deleted',
+          status: 200,
+          result
+        })
+      }
+    })
+  }
 }
